@@ -1,0 +1,38 @@
+﻿<Properties StartupConfiguration="Multiple Projects">
+  <MonoDevelop.Ide.Workbench ActiveDocument="TraderPanel.Gateway.Api/ocelot.json">
+    <Files>
+      <File FileName="CoffeeMarket.Gateway.Api/ocelot.json" Line="41" Column="63" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="CoffeeMarket" expanded="True">
+            <Node name="src" expanded="True">
+              <Node name="gateway" expanded="True" />
+              <Node name="microservices" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <DisabledProjects>
+    <String>CoffeeMarket.Catalog.Api/CoffeeMarket.Catalog.Api.csproj</String>
+    <String>CoffeeMarket.Gateway.Api/CoffeeMarket.Gateway.Api.csproj</String>
+    <String>CoffeeMarket.Customer.Api/CoffeeMarket.Customer.Api.csproj</String>
+  </DisabledProjects>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations>
+    <MultiItemSolutionRunConfiguration Id="Multiple Projects" Name="Multiple Projects">
+      <Items>
+        <StartupItem ItemId="{63F15252-A279-4095-BC2D-F05251225272}" ItemName="CoffeeMarket.Catalog.Api" />
+        <StartupItem ItemId="{A401E999-C20A-49C7-A21C-4A87E1719188}" ItemName="CoffeeMarket.Customer.Api" />
+        <StartupItem ItemId="{17C82DE5-9168-4DB3-9A20-C0AE9D234B41}" ItemName="CoffeeMarket.Gateway.Api" />
+      </Items>
+    </MultiItemSolutionRunConfiguration>
+  </MultiItemStartupConfigurations>
+</Properties>
