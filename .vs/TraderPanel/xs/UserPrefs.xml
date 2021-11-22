@@ -1,11 +1,14 @@
 ﻿<Properties StartupConfiguration="Multiple Projects">
   <MonoDevelop.Ide.ItemProperties.src.gateway.TraderPanel.Gateway.Api PreferredExecutionTarget="/Applications/Google Chrome.app" />
   <MonoDevelop.Ide.ItemProperties.src.microservices.TraderPanel.Auth PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="TraderPanel.Core/Repositories/UserRepository.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="TraderPanel.Core/appsettings.json">
     <Files>
-      <File FileName="TraderPanel.Core/Repositories/UserRepository.cs" Line="86" Column="14" />
-      <File FileName="TraderPanel.Core/Repositories/Interfaces/IGenericInterface.cs" Line="1" Column="1" />
-      <File FileName="TraderPanel.Core/Repositories/Interfaces/IUserRepository.cs" Line="8" Column="13" />
+      <File FileName="TraderPanel.Core/Repositories/UserRepository.cs" Line="82" Column="91" />
+      <File FileName="TraderPanel.Core/Entities/BaseEntity.cs" Line="6" Column="19" />
+      <File FileName="TraderPanel.Auth/Controllers/AuthController.cs" Line="41" Column="44" />
+      <File FileName="TraderPanel.Auth/Services/TokenHandler.cs" Line="1" Column="1" />
+      <File FileName="TraderPanel.Core/appsettings.json" Line="1" Column="1" />
+      <File FileName="TraderPanel.Auth/appsettings.json" Line="13" Column="3" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -20,13 +23,14 @@
               </Node>
               <Node name="microservices" expanded="True">
                 <Node name="TraderPanel.Auth" expanded="True">
-                  <Node name="Dependencies" expanded="True" />
                   <Node name="Controllers" expanded="True" />
                   <Node name="Models" expanded="True" />
                   <Node name="Services" expanded="True" />
                 </Node>
                 <Node name="TraderPanel.Core" expanded="True">
                   <Node name="Entities" expanded="True" />
+                  <Node name="Repositories" expanded="True" />
+                  <Node name="appsettings.json" selected="True" />
                 </Node>
                 <Node name="TraderPanel.Customer.Api" expanded="True">
                   <Node name="Controllers" expanded="True" />

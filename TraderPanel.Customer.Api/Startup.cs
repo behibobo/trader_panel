@@ -64,6 +64,7 @@ namespace TraderPanel.Customer.Api
 
             services.AddTransient<IPlanRepository, PlanRepository>();
             services.AddTransient<ICustomerRepository, CustomerRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IRepositoryWrapper, RepositoryWrapper>();
         }
 

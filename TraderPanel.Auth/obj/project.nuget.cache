@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "rwePoYjfV/SrydiV2vYu2O+t2oV4IBl6SZKyp+38lv40qVWKYt0vBYDUgxv0O1mNLikW8JLoL2Kuw+Dju++r+g==",
+  "dgSpecHash": "rfri3Qe4waWjT5qw3jhCVj3tDA5DFM5w/EsNwpQHhX09pTcen4LzZypXNrzkb64TLc+NbVg5pneKCFytrNBORg==",
   "success": true,
   "projectFilePath": "/Users/behzad/Documents/projects/coffeemarket/TraderPanel.Auth/TraderPanel.Auth.csproj",
   "expectedPackageFiles": [
+    "/Users/behzad/.nuget/packages/bcrypt.net-next/4.0.2/bcrypt.net-next.4.0.2.nupkg.sha512",
     "/Users/behzad/.nuget/packages/dapper/2.0.123/dapper.2.0.123.nupkg.sha512",
     "/Users/behzad/.nuget/packages/fluentmigrator/3.3.1/fluentmigrator.3.3.1.nupkg.sha512",
     "/Users/behzad/.nuget/packages/fluentmigrator.abstractions/3.3.1/fluentmigrator.abstractions.3.3.1.nupkg.sha512",

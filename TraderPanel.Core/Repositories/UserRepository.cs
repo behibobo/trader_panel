@@ -6,10 +6,11 @@ using Dapper;
 using Microsoft.Extensions.Configuration;
 using Npgsql;
 using TraderPanel.Core.Entities;
+using TraderPanel.Core.Repositories.Interfaces;
 
 namespace TraderPanel.Core.Repositories
 {
-    public class UserRepository
+    public class UserRepository : IUserRepository
     {
         private readonly IConfiguration configuration;
         public UserRepository(IConfiguration configuration)
@@ -20,7 +21,7 @@ namespace TraderPanel.Core.Repositories
         {
             entity.CreatedAt = DateTime.Now;
             entity.ModifiedAt = DateTime.Now;
-            var sql = "Insert into users (Email,CreatedAt, Password, ModifiedAt) VALUES (@UserName,@Email,@Password, @CreatedAt,@ModifiedAt)";
+            var sql = "Insert into public.users (username, email, password, usertype) VALUES (@UserName,@Email,@Password, @UserType)";
             using (var connection = new NpgsqlConnection(configuration.GetConnectionString("DefaultConnection")))
             {
                 connection.Open();
@@ -31,7 +32,7 @@ namespace TraderPanel.Core.Repositories
 
         public async Task<int> DeleteAsync(int id)
         {
-            var sql = "DELETE FROM users WHERE Id = @Id";
+            var sql = "DELETE FROM public.users WHERE Id = @Id";
             using (var connection = new NpgsqlConnection(configuration.GetConnectionString("DefaultConnection")))
             {
                 connection.Open();
@@ -77,7 +78,7 @@ namespace TraderPanel.Core.Repositories
 
         public async Task<User> GetByUserName(string loginName)
         {
-            var sql = "SELECT * FROM users WHERE UserName = @loginName OR Email = @loginName";
+            var sql = "SELECT * FROM public.users WHERE username = @loginName OR email = @loginName LIMIT 1";
             using (var connection = new NpgsqlConnection(configuration.GetConnectionString("DefaultConnection")))
             {
                 connection.Open();

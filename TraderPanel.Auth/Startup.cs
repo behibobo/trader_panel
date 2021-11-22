@@ -11,6 +11,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using TraderPanel.Auth.Services;
+using TraderPanel.Core.Repositories;
+using TraderPanel.Core.Repositories.Interfaces;
 
 namespace TraderPanel.Auth
 {
@@ -32,6 +35,11 @@ namespace TraderPanel.Auth
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "TraderPanel.Auth", Version = "v1" });
             });
+
+            services.AddTransient<IPlanRepository, PlanRepository>();
+            services.AddTransient<ICustomerRepository, CustomerRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IRepositoryWrapper, RepositoryWrapper>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

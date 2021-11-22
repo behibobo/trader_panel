@@ -6,5 +6,6 @@ namespace TraderPanel.Core.Repositories.Interfaces
     {
         IPlanRepository Plans { get; }
         ICustomerRepository Customers { get; }
+        IUserRepository Users { get; }
     }
 }

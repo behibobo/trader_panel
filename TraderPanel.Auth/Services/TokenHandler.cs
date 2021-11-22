@@ -5,13 +5,14 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using TraderPanel.Core.Entities;
 
 namespace TraderPanel.Auth.Services
 {
     public static class TokenHandler
     {
         public static IConfiguration _configuration;
-        public static dynamic CreateAccessToken()
+        public static dynamic CreateAccessToken(User user)
         {
 
             var audienceConfig = _configuration.GetSection("Audience");
@@ -36,7 +37,7 @@ namespace TraderPanel.Auth.Services
                      issuer: audienceConfig["Iss"],
                      audience: audienceConfig["Aud"],
                      claims: new List<Claim> {
-                         new Claim(ClaimTypes.Name, "behzad")
+                         new Claim("UserId", user.Id.ToString())
                      },
                      notBefore: now,
                      expires: now.Add(TimeSpan.FromMinutes(2)),

@@ -8,13 +8,16 @@ namespace TraderPanel.Core.Repositories
 
         public RepositoryWrapper(
             IPlanRepository planRepository,
-            ICustomerRepository customerRepository
+            ICustomerRepository customerRepository,
+            IUserRepository userRepository
         )
         {
             Plans = planRepository;
             Customers = customerRepository;
+            Users = userRepository;
         }
         public IPlanRepository Plans { get; }
         public ICustomerRepository Customers { get; }
+        public IUserRepository Users { get; }
     }
 }

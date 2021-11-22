@@ -1,5 +1,5 @@
 ﻿using System;
-using TraderPanel.Core.Entites;
+using TraderPanel.Core.Entities;
 
 namespace TraderPanel.Core.Repositories.Interfaces
 {
