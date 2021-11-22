@@ -46,7 +46,7 @@ namespace TraderPanel.Auth.Services
             return new
             {
                 AccessToken = new JwtSecurityTokenHandler().WriteToken(jwt),
-                Expires = TimeSpan.FromMinutes(2).TotalSeconds
+                Expires = TimeSpan.FromHours(2).TotalSeconds
             };
         }
     }

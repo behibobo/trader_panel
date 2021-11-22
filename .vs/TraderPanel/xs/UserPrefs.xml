@@ -1,14 +1,19 @@
 ﻿<Properties StartupConfiguration="Multiple Projects">
+  <MonoDevelop.Ide.ItemProperties.src.microservices.TraderPanel.CoreApi PreferredExecutionTarget="/Applications/Google Chrome.app" />
   <MonoDevelop.Ide.ItemProperties.src.gateway.TraderPanel.Gateway.Api PreferredExecutionTarget="/Applications/Google Chrome.app" />
   <MonoDevelop.Ide.ItemProperties.src.microservices.TraderPanel.Auth PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="TraderPanel.Core/appsettings.json">
+  <MonoDevelop.Ide.Workbench ActiveDocument="TraderPanel.Core/Entities/Plan.cs">
     <Files>
-      <File FileName="TraderPanel.Core/Repositories/UserRepository.cs" Line="82" Column="91" />
-      <File FileName="TraderPanel.Core/Entities/BaseEntity.cs" Line="6" Column="19" />
-      <File FileName="TraderPanel.Auth/Controllers/AuthController.cs" Line="41" Column="44" />
-      <File FileName="TraderPanel.Auth/Services/TokenHandler.cs" Line="1" Column="1" />
-      <File FileName="TraderPanel.Core/appsettings.json" Line="1" Column="1" />
-      <File FileName="TraderPanel.Auth/appsettings.json" Line="13" Column="3" />
+      <File FileName="TraderPanel.CoreApi/Controllers/PlansController.cs" Line="26" Column="10" />
+      <File FileName="TraderPanel.Customer.Api/Controllers/CustomersController.cs" Line="28" Column="1" />
+      <File FileName="TraderPanel.CoreApi/Startup.cs" Line="33" Column="1" />
+      <File FileName="TraderPanel.CoreApi/appsettings.json" Line="1" Column="1" />
+      <File FileName="TraderPanel.Gateway.Api/Startup.cs" Line="44" Column="31" />
+      <File FileName="TraderPanel.Gateway.Api/ocelot.json" Line="17" Column="34" />
+      <File FileName="TraderPanel.Auth/Services/TokenHandler.cs" Line="49" Column="45" />
+      <File FileName="TraderPanel.Customer.Api/Program.cs" Line="1" Column="1" />
+      <File FileName="TraderPanel.Customer.Api/Startup.cs" Line="57" Column="30" />
+      <File FileName="TraderPanel.Core/Entities/Plan.cs" Line="8" Column="27" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -16,25 +21,19 @@
           <Node name="TraderPanel" expanded="True">
             <Node name="src" expanded="True">
               <Node name="gateway" expanded="True">
-                <Node name="TraderPanel.Gateway.Api" expanded="True">
-                  <Node name="Dependencies" expanded="True" />
-                  <Node name="Properties" expanded="True" />
-                </Node>
+                <Node name="TraderPanel.Gateway.Api" expanded="True" />
               </Node>
               <Node name="microservices" expanded="True">
-                <Node name="TraderPanel.Auth" expanded="True">
-                  <Node name="Controllers" expanded="True" />
-                  <Node name="Models" expanded="True" />
-                  <Node name="Services" expanded="True" />
-                </Node>
                 <Node name="TraderPanel.Core" expanded="True">
-                  <Node name="Entities" expanded="True" />
-                  <Node name="Repositories" expanded="True" />
-                  <Node name="appsettings.json" selected="True" />
+                  <Node name="Entities" expanded="True">
+                    <Node name="Plan.cs" selected="True" />
+                  </Node>
+                </Node>
+                <Node name="TraderPanel.CoreApi" expanded="True">
+                  <Node name="Controllers" expanded="True" />
                 </Node>
                 <Node name="TraderPanel.Customer.Api" expanded="True">
                   <Node name="Controllers" expanded="True" />
-                  <Node name="Properties" expanded="True" />
                 </Node>
               </Node>
             </Node>
@@ -54,6 +53,7 @@
       <Items>
         <StartupItem ItemId="{FB633110-E5DB-4E9D-A68D-4DCFDDC6E1EC}" ItemName="TraderPanel.Auth" ConfigurationId="Default" />
         <StartupItem ItemId="{63F15252-A279-4095-BC2D-F05251225272}" ItemName="TraderPanel.Core" ConfigurationId="TraderPanel.Catalog.Api" />
+        <StartupItem ItemId="{949A9850-277F-4219-B55E-FC6088A50B0B}" ItemName="TraderPanel.CoreApi" ConfigurationId="Default" />
         <StartupItem ItemId="{A401E999-C20A-49C7-A21C-4A87E1719188}" ItemName="TraderPanel.Customer.Api" ConfigurationId="Default" />
         <StartupItem ItemId="{17C82DE5-9168-4DB3-9A20-C0AE9D234B41}" ItemName="TraderPanel.Gateway.Api" ConfigurationId="Default" />
       </Items>

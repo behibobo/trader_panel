@@ -66,6 +66,19 @@
         }
       ],
       "UpstreamPathTemplate": "/auth-service/auth/testApp"
+    },
+
+    //PLANS
+    {
+      "DownstreamPathTemplate": "/api/plans",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7004
+        }
+      ],
+      "UpstreamPathTemplate": "/plan-service/plans"
     }
   ],
   "GlobalConfiguration": {
