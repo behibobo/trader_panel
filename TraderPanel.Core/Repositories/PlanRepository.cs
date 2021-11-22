@@ -21,7 +21,7 @@ namespace TraderPanel.Core.Repositories
         {
             entity.CreatedAt = DateTime.Now;
             entity.ModifiedAt = DateTime.Now;
-            var sql = "Insert into plans (Name,TraderRate,PanelRate,CustomerRate,CreatedAt, ModifiedAt) VALUES (@Name,@TradeRate,@PanelRate,@CustomerRate,@CreatedAt, ModifiedAt)";
+            var sql = "Insert into public.plans (Name,TraderRate,PanelRate,CustomerRate,CreatedAt, ModifiedAt) VALUES (@Name,@TradeRate,@PanelRate,@CustomerRate,@CreatedAt, @ModifiedAt)";
             using (var connection = new NpgsqlConnection(configuration.GetConnectionString("DefaultConnection")))
             {
                 connection.Open();

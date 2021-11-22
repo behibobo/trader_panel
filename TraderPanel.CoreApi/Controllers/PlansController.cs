@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using TraderPanel.Core.Entities;
 using TraderPanel.Core.Repositories.Interfaces;
 
 namespace TraderPanel.CoreApi.Controllers
@@ -23,6 +24,12 @@ namespace TraderPanel.CoreApi.Controllers
         public async Task<IActionResult> GetAllPlans()
         {
             return Ok(await _repository.Plans.GetAllAsync());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreatePlan([FromRoute] Plan model)
+        {
+            return Ok(await _repository.Plans.AddAsync(model));
         }
     }
 }
