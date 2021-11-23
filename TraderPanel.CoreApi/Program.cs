@@ -20,8 +20,8 @@ namespace TraderPanel.CoreApi
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseUrls("http://localhost:7004");
                     webBuilder.UseStartup<Startup>();
+                    webBuilder.UseUrls("http://localhost:7004", "http://localhost:8004");
                 });
     }
 }

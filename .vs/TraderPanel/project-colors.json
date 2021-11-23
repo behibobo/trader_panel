@@ -1,0 +1,41 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "63f15252-a279-4095-bc2d-f05251225272": {
+      "ProjectGuid": "63f15252-a279-4095-bc2d-f05251225272",
+      "DisplayName": "TraderPanel.Core",
+      "ColorIndex": 0
+    },
+    "17c82de5-9168-4db3-9a20-c0ae9d234b41": {
+      "ProjectGuid": "17c82de5-9168-4db3-9a20-c0ae9d234b41",
+      "DisplayName": "TraderPanel.Gateway.Api",
+      "ColorIndex": 1
+    },
+    "a401e999-c20a-49c7-a21c-4a87e1719188": {
+      "ProjectGuid": "a401e999-c20a-49c7-a21c-4a87e1719188",
+      "DisplayName": "TraderPanel.Customer.Api",
+      "ColorIndex": 2
+    },
+    "949a9850-277f-4219-b55e-fc6088a50b0b": {
+      "ProjectGuid": "949a9850-277f-4219-b55e-fc6088a50b0b",
+      "DisplayName": "TraderPanel.CoreApi",
+      "ColorIndex": 3
+    },
+    "fb633110-e5db-4e9d-a68d-4dcfddc6e1ec": {
+      "ProjectGuid": "fb633110-e5db-4e9d-a68d-4dcfddc6e1ec",
+      "DisplayName": "TraderPanel.Auth",
+      "ColorIndex": 4
+    },
+    "27c6c933-6a9a-4e06-90de-8b85d00a9f1d": {
+      "ProjectGuid": "27c6c933-6a9a-4e06-90de-8b85d00a9f1d",
+      "DisplayName": "TraderPanel.Trader.Api",
+      "ColorIndex": 5
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
+    }
+  },
+  "NextColorIndex": 6
+}

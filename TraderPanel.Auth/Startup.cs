@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -10,10 +11,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using TraderPanel.Auth.Services;
 using TraderPanel.Core.Repositories;
 using TraderPanel.Core.Repositories.Interfaces;
+using TraderPanel.Core.Services;
 
 namespace TraderPanel.Auth
 {
@@ -26,20 +29,34 @@ namespace TraderPanel.Auth
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            SymmetricSecurityKey signInKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Security"]));
+            string authenticationProviderKey = "TestKey";
+            services.AddAuthentication(option => option.DefaultAuthenticateScheme = authenticationProviderKey)
+                .AddJwtBearer(authenticationProviderKey, options =>
+                {
+                    options.RequireHttpsMetadata = false;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = signInKey,
+                        ValidateIssuer = true,
+                        ValidIssuer = Configuration["JWT:Issuer"],
+                        ValidateAudience = true,
+                        ValidAudience = Configuration["JWT:Audience"],
+                        ValidateLifetime = true,
+                        ClockSkew = TimeSpan.Zero,
+                        RequireExpirationTime = true
+                    };
+                });
             services.AddControllers();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "TraderPanel.Auth", Version = "v1" });
             });
 
-            services.AddTransient<IPlanRepository, PlanRepository>();
-            services.AddTransient<ICustomerRepository, CustomerRepository>();
-            services.AddTransient<IUserRepository, UserRepository>();
-            services.AddTransient<IRepositoryWrapper, RepositoryWrapper>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,10 +69,10 @@ namespace TraderPanel.Auth
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "TraderPanel.Auth v1"));
             }
 
-            app.UseHttpsRedirection();
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

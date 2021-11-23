@@ -6,8 +6,8 @@ namespace TraderPanel.Core.Entities
     public class Plan : BaseEntity
     {
         public string Name { get; set; }
-        public decimal TraderRate { get; set; }
-        public decimal PanelRate { get; set; }
-        public decimal CustomerRate { get; set; }
+        public float TraderRate { get; set; }
+        public float PanelRate { get; set; }
+        public float CustomerRate { get; set; }
     }
 }

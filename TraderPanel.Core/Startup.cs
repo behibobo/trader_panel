@@ -15,6 +15,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using TraderPanel.Core.Repositories;
 using TraderPanel.Core.Repositories.Interfaces;
+using TraderPanel.Core.Services;
 
 namespace TraderPanel.Catalog.Api
 {
@@ -31,42 +32,14 @@ namespace TraderPanel.Catalog.Api
         public void ConfigureServices(IServiceCollection services)
         {
 
-            var audienceConfig = Configuration.GetSection("Audience");
-
-            var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(audienceConfig["Secret"]));
-            var tokenValidationParameters = new TokenValidationParameters
-            {
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = signingKey,
-                ValidateIssuer = true,
-                ValidIssuer = audienceConfig["Iss"],
-                ValidateAudience = true,
-                ValidAudience = audienceConfig["Aud"],
-                ValidateLifetime = true,
-                ClockSkew = TimeSpan.Zero,
-                RequireExpirationTime = true,
-            };
-
-            services.AddAuthentication(o =>
-            {
-                o.DefaultAuthenticateScheme = "TestKey";
-            })
-            .AddJwtBearer("TestKey", x =>
-            {
-                x.RequireHttpsMetadata = false;
-                x.TokenValidationParameters = tokenValidationParameters;
-            });
-
+            
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "TraderPanel.Customer.Api", Version = "v1" });
             });
 
-            services.AddTransient<IPlanRepository, PlanRepository>();
-            services.AddTransient<ICustomerRepository, CustomerRepository>();
-            services.AddTransient<IUserRepository, UserRepository>();
-            services.AddTransient<IRepositoryWrapper, RepositoryWrapper>();
+            ServiceRegistration.AddInfrastructure(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

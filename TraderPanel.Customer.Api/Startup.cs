@@ -15,6 +15,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using TraderPanel.Core.Repositories;
 using TraderPanel.Core.Repositories.Interfaces;
+using TraderPanel.Core.Services;
 
 namespace TraderPanel.Customer.Api
 {
@@ -36,10 +37,7 @@ namespace TraderPanel.Customer.Api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "TraderPanel.Customer.Api", Version = "v1" });
             });
 
-            services.AddTransient<IPlanRepository, PlanRepository>();
-            services.AddTransient<ICustomerRepository, CustomerRepository>();
-            services.AddTransient<IUserRepository, UserRepository>();
-            services.AddTransient<IRepositoryWrapper, RepositoryWrapper>();
+            ServiceRegistration.AddInfrastructure(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

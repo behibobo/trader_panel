@@ -11,25 +11,10 @@ namespace TraderPanel.Customer.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class CustomersController : ControllerBase
     {
-        private readonly IRepositoryWrapper _repository;
-        public CustomersController(IRepositoryWrapper repository)
+        public CustomersController()
         {
-            _repository = repository;
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> GetAllCustomers()
-        {
-            return Ok(await _repository.Customers.GetAllAsync());
-        }
-
-        [HttpGet("{name}")]
-        public IActionResult Get([FromRoute] string name)
-        {
-            return Ok(name);
         }
     }
 }

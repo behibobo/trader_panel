@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
@@ -10,81 +11,34 @@ using TraderPanel.Core.Repositories.Interfaces;
 
 namespace TraderPanel.Core.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : GenericRepository<User>
     {
-        private readonly IConfiguration configuration;
-        public UserRepository(IConfiguration configuration)
+        private IConfiguration _configuration;
+        public UserRepository(string tableName, IConfiguration configuration) : base(tableName, configuration)
         {
-            this.configuration = configuration;
+            _configuration = configuration;
         }
-        public async Task<int> AddAsync(User entity)
+
+        public async Task<User> GetByLoginAsync(string login)
         {
-            entity.CreatedAt = DateTime.Now;
-            entity.ModifiedAt = DateTime.Now;
-            var sql = "Insert into public.users (username, email, password, usertype) VALUES (@UserName,@Email,@Password, @UserType)";
-            using (var connection = new NpgsqlConnection(configuration.GetConnectionString("DefaultConnection")))
+            using (var connection = CreateConnection())
             {
-                connection.Open();
-                var result = await connection.ExecuteAsync(sql, entity);
+                var result = await connection.QuerySingleOrDefaultAsync<User>($"SELECT * FROM public.users WHERE UserName=@login OR Email=@login", new { login = login });
                 return result;
             }
         }
 
-        public async Task<int> DeleteAsync(int id)
+
+        private NpgsqlConnection connection()
         {
-            var sql = "DELETE FROM public.users WHERE Id = @Id";
-            using (var connection = new NpgsqlConnection(configuration.GetConnectionString("DefaultConnection")))
-            {
-                connection.Open();
-                var result = await connection.ExecuteAsync(sql, new { Id = id });
-                return result;
-            }
+            return new NpgsqlConnection(_configuration.GetConnectionString("DefaultConnection"));
         }
 
-        public async Task<IReadOnlyList<User>> GetAllAsync()
+        private IDbConnection CreateConnection()
         {
-            var sql = "SELECT * FROM users";
-            using (var connection = new NpgsqlConnection(configuration.GetConnectionString("DefaultConnection")))
-            {
-                connection.Open();
-                var result = await connection.QueryAsync<User>(sql);
-                return result.ToList();
-            }
-        }
-
-
-        public async Task<User> GetByIdAsync(int id)
-        {
-            var sql = "SELECT * FROM users WHERE Id = @Id";
-            using (var connection = new NpgsqlConnection(configuration.GetConnectionString("DefaultConnection")))
-            {
-                connection.Open();
-                var result = await connection.QuerySingleOrDefaultAsync<User>(sql, new { Id = id });
-                return result;
-            }
-        }
-
-        public async Task<int> UpdateAsync(User entity)
-        {
-            entity.ModifiedAt = DateTime.Now;
-            var sql = "UPDATE users SET UserName = @UserName, Email = @Email, Password = @Password";
-            using (var connection = new NpgsqlConnection(configuration.GetConnectionString("DefaultConnection")))
-            {
-                connection.Open();
-                var result = await connection.ExecuteAsync(sql, entity);
-                return result;
-            }
-        }
-
-        public async Task<User> GetByUserName(string loginName)
-        {
-            var sql = "SELECT * FROM public.users WHERE username = @loginName OR email = @loginName LIMIT 1";
-            using (var connection = new NpgsqlConnection(configuration.GetConnectionString("DefaultConnection")))
-            {
-                connection.Open();
-                var result = await connection.QuerySingleOrDefaultAsync<User>(sql, new { loginName = loginName });
-                return result;
-            }
+            var conn = connection();
+            conn.Open();
+            return conn;
         }
     }
 }

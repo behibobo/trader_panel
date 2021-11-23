@@ -1,73 +1,5 @@
 ﻿{
   "Routes": [
-    {
-      "DownstreamPathTemplate": "/api/catalog",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 7001
-        }
-      ],
-      "UpstreamPathTemplate": "/catalog-service/catalog"
-    },
-    {
-      "DownstreamPathTemplate": "/api/customers",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 7002
-        }
-      ],
-      "UpstreamPathTemplate": "/customer-service/customers",
-      "RateLimitOptions": {
-        "ClientWhitelist": [],
-        "EnableRateLimiting": true,
-        "Period": "1s",
-        "PeriodTimespan": 1,
-        "Limit": 1
-      },
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "TestKey",
-        "AllowedScopes": []
-      }
-    },
-    {
-      "DownstreamPathTemplate": "/api/customers/{name}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 7002
-        }
-      ],
-      "UpstreamPathTemplate": "/customer-service/customers/{name}"
-    },
-    {
-      "DownstreamPathTemplate": "/api/auth/{username}/{password}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 7003
-        }
-      ],
-      "UpstreamPathTemplate": "/auth-service/auth/{username}/{password}"
-    },
-
-    {
-      "DownstreamPathTemplate": "/api/auth/testApp",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 7003
-        }
-      ],
-      "UpstreamPathTemplate": "/auth-service/auth/testApp"
-    },
-
     //PLANS
     {
       "DownstreamPathTemplate": "/api/plans",
@@ -75,10 +7,28 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 7004
+          "Port": "7004"
         }
       ],
-      "UpstreamPathTemplate": "/plan-service/plans"
+      "UpstreamPathTemplate": "/plan-service/plans",
+      "UpstreamHttpMethod": [ "GET", "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/plans/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "7004"
+        }
+      ],
+      "UpstreamPathTemplate": "/plan-service/plans/{id}",
+      "UpstreamHttpMethod": [ "GET", "DELETE", "PUT" ],
+      "RouteIsCaseSensitive": false,
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "TestKey",
+        "AllowedScopes": []
+      }
     }
   ],
   "GlobalConfiguration": {

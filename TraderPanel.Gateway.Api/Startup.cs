@@ -29,31 +29,25 @@ namespace TraderPanel.Gateway.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var audienceConfig = Configuration.GetSection("Audience");
-
-            var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(audienceConfig["Secret"]));
-            var tokenValidationParameters = new TokenValidationParameters
-            {
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = signingKey,
-                ValidateIssuer = true,
-                ValidIssuer = audienceConfig["Iss"],
-                ValidateAudience = true,
-                ValidAudience = audienceConfig["Aud"],
-                ValidateLifetime = true,
-                ClockSkew = TimeSpan.Zero,
-                RequireExpirationTime = true,
-            };
-
-            services.AddAuthentication(o =>
-            {
-                o.DefaultAuthenticateScheme = "TestKey";
-            })
-            .AddJwtBearer("TestKey", x =>
-            {
-                x.RequireHttpsMetadata = false;
-                x.TokenValidationParameters = tokenValidationParameters;
-            });
+            SymmetricSecurityKey signInKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Security"]));
+            string authenticationProviderKey = "TestKey";
+            services.AddAuthentication(option => option.DefaultAuthenticateScheme = authenticationProviderKey)
+                .AddJwtBearer(authenticationProviderKey, options =>
+                {
+                    options.RequireHttpsMetadata = false;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = signInKey,
+                        ValidateIssuer = true,
+                        ValidIssuer = Configuration["JWT:Issuer"],
+                        ValidateAudience = true,
+                        ValidAudience = Configuration["JWT:Audience"],
+                        ValidateLifetime = true,
+                        ClockSkew = TimeSpan.Zero,
+                        RequireExpirationTime = true
+                    };
+                });
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

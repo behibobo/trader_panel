@@ -10,74 +10,11 @@ using TraderPanel.Core.Repositories.Interfaces;
 
 namespace TraderPanel.Core.Repositories
 {
-    public class PlanRepository : IPlanRepository
+    public class PlanRepository :  GenericRepository<Plan>
     {
-        private readonly IConfiguration configuration;
-        public PlanRepository(IConfiguration configuration)
+        public PlanRepository(string tableName, IConfiguration configuration) : base(tableName, configuration)
         {
-            this.configuration = configuration;
-        }
-        public async Task<int> AddAsync(Plan entity)
-        {
-            entity.CreatedAt = DateTime.Now;
-            entity.ModifiedAt = DateTime.Now;
-            var sql = "Insert into public.plans (Name,TraderRate,PanelRate,CustomerRate,CreatedAt, ModifiedAt) VALUES (@Name,@TradeRate,@PanelRate,@CustomerRate,@CreatedAt, @ModifiedAt)";
-            using (var connection = new NpgsqlConnection(configuration.GetConnectionString("DefaultConnection")))
-            {
-                connection.Open();
-                var result = await connection.ExecuteAsync(sql, entity);
-                return result;
-            }
-        }
 
-        public async Task<int> DeleteAsync(int id)
-        {
-            var sql = "DELETE FROM plans WHERE Id = @Id";
-            using (var connection = new NpgsqlConnection(configuration.GetConnectionString("DefaultConnection")))
-            {
-                connection.Open();
-                var result = await connection.ExecuteAsync(sql, new { Id = id });
-                return result;
-            }
-        }
-
-        public async Task<IReadOnlyList<Plan>> GetAllAsync()
-        {
-            var sql = "SELECT * FROM plans";
-            using (var connection = new NpgsqlConnection(configuration.GetConnectionString("DefaultConnection")))
-            {
-                connection.Open();
-                var result = await connection.QueryAsync<Plan>(sql);
-                return result.ToList();
-            }
-        }
-
-        public Task<List<Plan>> GetAllCustomers()
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<Plan> GetByIdAsync(int id)
-        {
-            var sql = "SELECT * FROM plans WHERE Id = @Id";
-            using (var connection = new NpgsqlConnection(configuration.GetConnectionString("DefaultConnection")))
-            {
-                connection.Open();
-                var result = await connection.QuerySingleOrDefaultAsync<Plan>(sql, new { Id = id });
-                return result;
-            }
-        }
-
-        public async Task<int> UpdateAsync(Plan entity)
-        {
-            entity.ModifiedAt = DateTime.Now;
-            var sql = "UPDATE plans SET Name = @Name, TraderRate = @TraderRate, PanelRate = @PanelRate, CustomerRate = @CustomerRate, ModifiedAt = @ModifiedAt  WHERE Id = @Id";
-            using (var connection = new NpgsqlConnection(configuration.GetConnectionString("DefaultConnection")))
-            {
-                connection.Open();
-                var result = await connection.ExecuteAsync(sql, entity);
-                return result;
-            }
         }
     }
 }

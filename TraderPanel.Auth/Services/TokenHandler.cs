@@ -14,39 +14,34 @@ namespace TraderPanel.Auth.Services
         public static IConfiguration _configuration;
         public static dynamic CreateAccessToken(User user)
         {
-
-            var audienceConfig = _configuration.GetSection("Audience");
-
-            var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(audienceConfig["Secret"]));
-            var tokenValidationParameters = new TokenValidationParameters
+            SymmetricSecurityKey symmetricSecurityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration["JWT:Security"]));
+            TokenValidationParameters tokenValidationParameters = new TokenValidationParameters
             {
                 ValidateIssuerSigningKey = true,
-                IssuerSigningKey = signingKey,
+                IssuerSigningKey = symmetricSecurityKey,
                 ValidateIssuer = true,
-                ValidIssuer = audienceConfig["Iss"],
+                ValidIssuer = _configuration["JWT:Issuer"],
                 ValidateAudience = true,
-                ValidAudience = audienceConfig["Aud"],
+                ValidAudience = _configuration["JWT:Audience"],
                 ValidateLifetime = true,
                 ClockSkew = TimeSpan.Zero,
-                RequireExpirationTime = true,
+                RequireExpirationTime = true
             };
-            
             DateTime now = DateTime.UtcNow;
-
             JwtSecurityToken jwt = new JwtSecurityToken(
-                     issuer: audienceConfig["Iss"],
-                     audience: audienceConfig["Aud"],
+                     issuer: _configuration["JWT:Issuer"],
+                     audience: _configuration["JWT:Audience"],
                      claims: new List<Claim> {
-                         new Claim("UserId", user.Id.ToString())
+                      new Claim(ClaimTypes.Name, "gncy")
                      },
                      notBefore: now,
                      expires: now.Add(TimeSpan.FromMinutes(2)),
-                     signingCredentials: new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256)
+                     signingCredentials: new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256)
                  );
             return new
             {
                 AccessToken = new JwtSecurityTokenHandler().WriteToken(jwt),
-                Expires = TimeSpan.FromHours(2).TotalSeconds
+                Expires = TimeSpan.FromMinutes(2).TotalSeconds
             };
         }
     }

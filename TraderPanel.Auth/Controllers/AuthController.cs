@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using TraderPanel.Auth.Models;
 using TraderPanel.Auth.Services;
 using TraderPanel.Core.Entities;
+using TraderPanel.Core.Repositories;
 using TraderPanel.Core.Repositories.Interfaces;
 using BC = BCrypt.Net.BCrypt;
 
@@ -19,17 +20,17 @@ namespace TraderPanel.Auth.Controllers
     public class AuthController : ControllerBase
     {
         private IConfiguration _configuration;
-        private IRepositoryWrapper _repository;
-        public AuthController(IConfiguration configuration, IRepositoryWrapper repository)
+        private UserRepository _repository;
+        public AuthController(IConfiguration configuration)
         {
             _configuration = configuration;
-            _repository = repository;
+            _repository = new UserRepository("users", _configuration);
         }
 
         [HttpPost("Login")]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
-            var user = await _repository.Users.GetByUserName(model.LoginName);
+            var user = await _repository.GetByLoginAsync(model.LoginName);
 
             if (user == null || !BC.Verify(model.Password, user.Password))
             {
@@ -40,18 +41,20 @@ namespace TraderPanel.Auth.Controllers
                 TokenHandler._configuration = _configuration;
                 return Ok(TokenHandler.CreateAccessToken(user));
             }
-            }
+        }
 
         [HttpPost("Register")]
         public async Task<IActionResult> Register([FromBody] RegisterModel model)
         {
             var user = new User();
+            user.Id = 1;
             user.UserName = model.UserName;
             user.Email = model.Email;
             user.UserType = model.UserType;
             user.Password = BC.HashPassword(model.Password);
-
-            await _repository.Users.AddAsync(user);
+            user.CreatedAt = DateTime.Now;
+            user.ModifiedAt = DateTime.Now;
+            await _repository.InsertAsync(user);
             return Ok();
         }
     }
